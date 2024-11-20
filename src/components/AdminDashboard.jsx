@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import avater from "../assets/avater.webp"
+import React, { useState, useEffect, useContext } from "react";
+import Avatar from "react-avatar";
+import logo from "../assets/logo.svg";
+import { UserContext } from "../context/userContext";
+import { adminQuizzes } from "../api/quizzes/Get";
 
 const AdminDashboard = () => {
   const [quizzes, setQuizzes] = useState([]);
+  const { username } = useContext(UserContext);
 
   useEffect(() => {
     // Fetch quiz data from the API
-    axios
-      .get("http://localhost:5000/api/admin/quizzes") // Replace with your API endpoint
-      .then((response) => setQuizzes(response.data))
-      .catch((error) => console.error("Error fetching quizzes:", error));
+    adminQuizzes().then((response) => {
+      console.log(response);
+      if (response[0]?.data) {
+        setQuizzes(response[0]?.data);
+      } else {
+        console.log(response?.[1]);
+      }
+    });
   }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-primary p-6 flex flex-col">
+      <aside className="w-64 bg-primary p-6 flex flex-col justify-start text-left">
         <div className="mb-10">
-          <img src="../assets/logo-white.svg" alt="Logo" className="h-7" />
+          <img src={logo} alt="Logo" className="h-7 " />
         </div>
         <nav className="flex-grow">
           <ul className="space-y-2">
@@ -65,17 +72,18 @@ const AdminDashboard = () => {
           </ul>
         </nav>
         <div className="mt-auto flex items-center">
-          <img
-            src={avater}
-            alt="User Avatar"
+          <Avatar
+            name={username}
+            size="40" // Set size of the avatar
+            round={true} // Make it circular
             className="w-10 h-10 rounded-full mr-3 object-cover"
           />
-          <span className="text-white font-semibold">Saad Hasan</span>
+          <span className="text-white font-semibold">{username}</span>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow p-10">
+      <main className="flex-grow p-10 text-left">
         <header className="mb-8">
           <h2 className="text-2xl font-semibold">Hey There 👋!</h2>
           <h1 className="text-4xl font-bold">Welcome Back To Your Quiz Hub!</h1>

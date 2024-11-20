@@ -10,12 +10,12 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn"); 
+    localStorage.removeItem("isLoggedIn");
     setUsername("");
-    localStorage.removeItem("username"); 
+    localStorage.removeItem("username");
     setIsAdmin(false);
-    localStorage.removeItem("isAdmin"); 
-    
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("authToken");
   };
 
   return (

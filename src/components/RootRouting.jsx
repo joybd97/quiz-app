@@ -10,7 +10,7 @@ const RootRouting = () => {
   const { isLoggedIn, setIsLoggedIn, username, isAdmin } =
     useContext(UserContext);
 
-  console.log(isLoggedIn);
+  //console.log(isLoggedIn);
   return (
     <>
       <Routes>

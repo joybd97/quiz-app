@@ -8,7 +8,14 @@ import { UserContext } from "../context/userContext";
 
 function LogIn() {
   const navigate = useNavigate();
-  const { isLoggedIn,setIsLoggedIn, username, setUsername, isAdmin,setIsAdmin } = useContext(UserContext);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    username,
+    setUsername,
+    isAdmin,
+    setIsAdmin,
+  } = useContext(UserContext);
 
   const [password, setPassword] = useState("");
   //const [isAdmin, setIsAdmin] = useState(false);
@@ -27,20 +34,22 @@ function LogIn() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        payload
-      );
+      const response = await axios
+        .post("http://localhost:5000/api/auth/login", payload)
+        .then((response) => {
+          console.log(response);
+          const token = response?.data?.data?.tokens?.accessToken;
+          localStorage.setItem("authToken", token); // Store the token in localStorage
+          console.log(token);
+          const user = response.data.data.user.full_name;
+          setUsername(user);
+          setIsLoggedIn(true);
+        });
 
       alert("Sign-in successful!");
-      console.log("Response:", response.data);
-      const user = response.data.data.user.full_name;
-
-      setUsername(user);
-      setIsLoggedIn(true); // Update context state
-      //  console.log("isLoggedIn:", isLoggedIn);
       navigate("/"); // Redirect to home page
     } catch (error) {
+      console.log(error);
       const errorMessage = handleAPIError(error);
       alert(errorMessage);
     }

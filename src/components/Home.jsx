@@ -6,7 +6,7 @@ import { UserContext } from "../context/userContext";
 
 function Home() {
   const { isLoggedIn } = useContext(UserContext);
-  console.log(isLoggedIn);
+  //console.log(isLoggedIn);
 
   return (
     <>
