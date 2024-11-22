@@ -5,6 +5,8 @@ import Home from "./Home";
 import LogIn from "./LogIn";
 import Registration from "./Registration";
 import AdminDashboard from "./AdminDashboard";
+import QuizSet from "./QuizSet";
+import QuizEntry from "./QuizEntry";
 
 const RootRouting = () => {
   const { isLoggedIn, setIsLoggedIn, username, isAdmin } =
@@ -27,6 +29,10 @@ const RootRouting = () => {
           path="/dashboard"
           element={isAdmin ? <AdminDashboard /> : <Navigate to="/" replace />}
         />
+
+        <Route path="/quiz-set" element={<QuizSet />} />
+
+        <Route path="/quiz-entry" element={<QuizEntry />} />
       </Routes>
     </>
   );

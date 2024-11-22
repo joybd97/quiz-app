@@ -18,13 +18,22 @@ export const UserProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(
     JSON.parse(localStorage?.getItem("isAdmin") || "false")
   );
+  const [title, setTitle] = useState(
+    JSON.parse(localStorage?.getItem("title") || '""')
+  );
+  const [description, setDescription] = useState(
+    JSON.parse(localStorage?.getItem("description") || '""')
+  );
+
 
   // Sync state changes with localStorage
   useEffect(() => {
     localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
     localStorage.setItem("username", JSON.stringify(username));
     localStorage.setItem("isAdmin", JSON.stringify(isAdmin));
-  }, [isLoggedIn]);
+    localStorage.setItem("title", JSON.stringify(title));
+    localStorage.setItem("description", JSON.stringify(description));
+  }, [isLoggedIn, username, isAdmin, title, description]);
 
   // Context value to be shared
   const contextValue = {
@@ -34,6 +43,10 @@ export const UserProvider = ({ children }) => {
     setUsername,
     isAdmin,
     setIsAdmin,
+    title,
+    setTitle,
+    description,
+    setDescription,
   };
 
   return (

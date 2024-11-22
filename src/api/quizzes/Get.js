@@ -21,10 +21,27 @@ export const adminQuizzes = () => {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-            console.log(response)
+            //console.log(response)
             return [response];
         })
         .catch((error) => {
             return [false, handleAPIError(error)];
         });
 };
+
+export const fetchQuizzes = () => {
+    const token = localStorage.getItem('authToken');
+    return axios
+        .get("http://localhost:5000/api/admin/quizzes", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+           // console.log(response)
+            return [response?.data[0]];
+        })
+        .catch((error) => {
+            return [false, handleAPIError(error)];
+        });
+};
+
+

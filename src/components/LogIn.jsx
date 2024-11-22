@@ -37,10 +37,10 @@ function LogIn() {
       const response = await axios
         .post("http://localhost:5000/api/auth/login", payload)
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           const token = response?.data?.data?.tokens?.accessToken;
           localStorage.setItem("authToken", token); // Store the token in localStorage
-          console.log(token);
+          //console.log(token);
           const user = response.data.data.user.full_name;
           setUsername(user);
           setIsLoggedIn(true);

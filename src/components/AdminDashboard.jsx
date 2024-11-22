@@ -3,15 +3,35 @@ import Avatar from "react-avatar";
 import logo from "../assets/logo.svg";
 import { UserContext } from "../context/userContext";
 import { adminQuizzes } from "../api/quizzes/Get";
+import { deleteQuizSet } from "../api/quizzes/Delete";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [quizzes, setQuizzes] = useState([]);
   const { username } = useContext(UserContext);
 
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate("/quiz-set");
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      // Call the API to delete the quiz
+      await deleteQuizSet(id);
+
+      // Remove the deleted quiz from the state
+      setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
+    } catch (error) {
+      alert("Error deleting quiz. Please try again.");
+    }
+  };
+
   useEffect(() => {
     // Fetch quiz data from the API
     adminQuizzes().then((response) => {
-      console.log(response);
+      //console.log(response);
       if (response[0]?.data) {
         setQuizzes(response[0]?.data);
       } else {
@@ -74,8 +94,8 @@ const AdminDashboard = () => {
         <div className="mt-auto flex items-center">
           <Avatar
             name={username}
-            size="40" // Set size of the avatar
-            round={true} // Make it circular
+            size="40"
+            round={true}
             className="w-10 h-10 rounded-full mr-3 object-cover"
           />
           <span className="text-white font-semibold">{username}</span>
@@ -91,7 +111,7 @@ const AdminDashboard = () => {
 
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <a href="./quiz_set_page.html" className="group">
+          <div onClick={handleRedirect} className="group cursor-pointer">
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
               <div className="text-buzzr-purple mb-4 group-hover:scale-105 transition-all">
                 <svg
@@ -116,12 +136,12 @@ const AdminDashboard = () => {
                 Build from the ground up
               </p>
             </div>
-          </a>
+          </div>
 
           {quizzes.map((quiz) => (
             <div
               key={quiz.id}
-              className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 group cursor-pointer"
+              className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 group"
             >
               <div className="text-buzzr-purple mb-4 group-hover:scale-105 transition-all">
                 <svg
@@ -152,6 +172,12 @@ const AdminDashboard = () => {
               <p className="text-gray-600 text-sm group-hover:scale-105 transition-all">
                 {quiz.description}
               </p>
+              <button
+                onClick={() => handleDelete(quiz.id)}
+                className="mt-4 text-red-600 hover:underline"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
