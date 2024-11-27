@@ -7,6 +7,8 @@ import Registration from "./Registration";
 import AdminDashboard from "./AdminDashboard";
 import QuizSet from "./QuizSet";
 import QuizEntry from "./QuizEntry";
+import QuizParticipation from "./QuizParticipation";
+import QuizResult from "./QuizResult";
 
 const RootRouting = () => {
   const { isLoggedIn, setIsLoggedIn, username, isAdmin } =
@@ -33,6 +35,11 @@ const RootRouting = () => {
         <Route path="/quiz-set" element={<QuizSet />} />
 
         <Route path="/quiz-entry" element={<QuizEntry />} />
+
+        <Route path="/quizzes/:quizId" element={<QuizParticipation/>}/>
+
+        <Route path="/result" element={<QuizResult/>} />
+
       </Routes>
     </>
   );

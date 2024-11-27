@@ -3,6 +3,8 @@ import Welcome from "./Welcome";
 import { Navbar } from "./Navbar";
 import QuizItemCard from "./QuizItemCard";
 import { UserContext } from "../context/userContext";
+import { Result } from "postcss";
+import QuizResult from "./QuizResult";
 
 function Home() {
   const { isLoggedIn } = useContext(UserContext);
