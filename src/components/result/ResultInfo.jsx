@@ -1,4 +1,5 @@
 import React from 'react'
+import ProgressBar from '../common/ProgressBar'
 
 export default function ResultInfo({ result, totalMarks }) {
     return (
@@ -7,7 +8,7 @@ export default function ResultInfo({ result, totalMarks }) {
                 <div>
                     <div className="text-white">
                         <div>
-                          {/* {console.log(result)} */}
+                            {/* {console.log(result)} */}
                             <h2 className="text-4xl font-bold mb-2">{result?.quiz.title}</h2>
                             {/* <p>{result.quiz.description}</p> */}
                         </div>
@@ -46,6 +47,10 @@ export default function ResultInfo({ result, totalMarks }) {
                                 {/* <div>
                                         <img src="./assets/icons/circular-progressbar.svg" className="h-20" alt="Progress" />
                                     </div> */}
+
+                                <div>
+                                    <ProgressBar percentage={Math.floor((result?.submitted_answers.filter(sub => result?.correct_answers.some(c => c.question_id === sub.question_id && c.answer === sub.answer)).length) / (result?.correct_answers.length) * 100)} />
+                                </div>
                             </div>
                         </div>
                     </div>
