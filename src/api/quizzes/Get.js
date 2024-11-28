@@ -4,7 +4,7 @@ import { handleAPIError } from "../APIErrorHandler";
 export const getAllQuizzes = () => {
     const token = localStorage.getItem('authToken');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn == false){
+    if (isLoggedIn == false) {
         return (
             axios.get(("http://localhost:5000/api/quizzes"))
 
@@ -16,8 +16,7 @@ export const getAllQuizzes = () => {
                     return [false, handleAPIError(error)];
                 })
         )
-    } else
-    {
+    } else {
         return axios
             .get("http://localhost:5000/api/quizzes", {
                 headers: { Authorization: `Bearer ${token}` },
@@ -30,7 +29,7 @@ export const getAllQuizzes = () => {
                 return [false, handleAPIError(error)];
             });
     }
-    
+
 };
 
 export const adminQuizzes = () => {
@@ -56,7 +55,7 @@ export const fetchQuizzes = () => {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-           // console.log(response)
+            // console.log(response)
             return [response?.data[0]];
         })
         .catch((error) => {
@@ -67,11 +66,11 @@ export const fetchQuizzes = () => {
 export const fetchQuizByID = (id) => {
     const token = localStorage.getItem('authToken');
     return axios
-        .get( `http://localhost:5000/api/quizzes/${id}`, {
+        .get(`http://localhost:5000/api/quizzes/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          //  console.log(response)
+            //  console.log(response)
             return [response?.data?.data];
         })
         .catch((error) => {
@@ -80,19 +79,17 @@ export const fetchQuizByID = (id) => {
 };
 
 
-export const fetchQuizResult = (id) => {
+export const fetchQuizResultLeaderboardData = (id) => {
     const token = localStorage.getItem('authToken');
     return axios
         .get(`http://localhost:5000/api/quizzes/${id}/attempts`, {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-            //console.log(response)
+        //    console.log(response)
             return [response?.data?.data];
         })
         .catch((error) => {
             return [false, handleAPIError(error)];
         });
 };
-
-

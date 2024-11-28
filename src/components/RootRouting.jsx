@@ -9,6 +9,7 @@ import QuizSet from "./QuizSet";
 import QuizEntry from "./QuizEntry";
 import QuizParticipation from "./QuizParticipation";
 import QuizResult from "./QuizResult";
+import LeaderBoard from "./LeaderBoard";
 
 const RootRouting = () => {
   const { isLoggedIn, setIsLoggedIn, username, isAdmin } =
@@ -39,6 +40,8 @@ const RootRouting = () => {
         <Route path="/quizzes/:quizId" element={<QuizParticipation/>}/>
 
         <Route path="/result" element={<QuizResult/>} />
+
+        <Route path="/leader-board" element={<LeaderBoard/>}/>
 
       </Routes>
     </>

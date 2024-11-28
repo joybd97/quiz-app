@@ -1,14 +1,16 @@
 import React from 'react'
 import ProgressBar from '../common/ProgressBar'
+import { useNavigate } from 'react-router-dom'
 
 export default function ResultInfo({ result, totalMarks }) {
+    const navigate = useNavigate()
     return (
         <>
             <div className="max-h-screen overflow-hidden hidden lg:flex lg:w-1/2 bg-primary flex-col justify-center p-12 relative">
                 <div>
                     <div className="text-white">
                         <div>
-                            {/* {console.log(result)} */}
+                            {console.log(result)}
                             <h2 className="text-4xl font-bold mb-2">{result?.quiz.title}</h2>
                             {/* <p>{result.quiz.description}</p> */}
                         </div>
@@ -32,8 +34,10 @@ export default function ResultInfo({ result, totalMarks }) {
                                     </div>
                                 </div>
 
-                                <a href="./leaderboard_page.html"
-                                    className="bg-secondary py-3 rounded-md hover:bg-secondary/90 transition-colors text-lg font-medium underline text-white">
+                                <a
+                                    onClick={() => navigate('/leader-board', { state: { id: result?.quiz?.id } } )}
+                                    className="cursor-pointer bg-secondary py-3 rounded-md hover:bg-secondary/90 transition-colors text-lg font-medium underline text-white"
+                                >
                                     View Leaderboard
                                 </a>
                             </div>

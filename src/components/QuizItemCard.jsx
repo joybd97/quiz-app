@@ -55,14 +55,13 @@ const QuizItemCard = () => {
 
                 {/* Hover Overlay for Already Participated */}
                 {quiz.is_attempted && (
-                  <div className="absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white hidden group-hover:grid place-items-center">
+                  <div
+                    className="absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white hidden group-hover:grid place-items-center cursor-pointer"
+                    onClick={() => navigate(`/leader-board`, { state: { id:quiz?.id }})}
+                  >
                     <div>
-                      <h1 className="text-3xl font-bold">
-                        Already Participated
-                      </h1>
-                      <p className="text-center">
-                        Click to view your leaderboard
-                      </p>
+                      <h1 className="text-3xl font-bold">Already Participated</h1>
+                      <p className="text-center">Click to view your leaderboard</p>
                     </div>
                   </div>
                 )}

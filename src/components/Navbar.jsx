@@ -16,13 +16,21 @@ export const Navbar = () => {
     setIsAdmin(false);
     localStorage.removeItem("isAdmin");
     localStorage.removeItem("authToken");
+    localStorage.removeItem("result");
+    localStorage.removeItem("quizId");
+    localStorage.removeItem("id");
   };
 
   return (
     <div className="container mx-auto py-3" style={{ fontFamily: "Jaro" }}>
       <nav className="flex justify-between items-center mb-12">
         {/* Logo */}
-        <img src={logo} className="h-7" alt="Logo" />
+        <img
+          src={logo}
+          className="h-7 cursor-pointer"
+          alt="Logo"
+          onClick={() => navigate("/")}
+        />
 
         {/* Right-side buttons */}
         <div className="flex gap-4">
